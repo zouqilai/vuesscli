@@ -67,6 +67,7 @@ const webpackConfig = merge(baseWebpackConfig, {
         ? 'index.html'
         : config.build.index,
       template: 'index.html',
+      title:'大数据',
       inject: true,
       minify: {
         removeComments: true,
@@ -76,14 +77,14 @@ const webpackConfig = merge(baseWebpackConfig, {
         // https://github.com/kangax/html-minifier#options-quick-reference
       },
       // necessary to consistently work with multiple chunks via CommonsChunkPlugin
-      chunksSortMode: 'dependency',
-      chunks:['manifest','vendor','app']
+      chunksSortMode: 'dependency'
     }),
     new HtmlWebpackPlugin({
       filename: process.env.NODE_ENV === 'testing'
         ? 'admin.html'
         : config.build.admin,
       template: 'admin.html',
+      title:'大数据后台',
       inject: true,
       minify: {
         removeComments: true,
@@ -93,8 +94,7 @@ const webpackConfig = merge(baseWebpackConfig, {
         // https://github.com/kangax/html-minifier#options-quick-reference
       },
       // necessary to consistently work with multiple chunks via CommonsChunkPlugin
-      chunksSortMode: 'dependency',
-      chunks:['manifest','vendor','app2']
+      chunksSortMode: 'dependency'
     }),
     // keep module.id stable when vendor modules does not change
     new webpack.HashedModuleIdsPlugin(),
@@ -124,17 +124,17 @@ const webpackConfig = merge(baseWebpackConfig, {
     // in a separate chunk, similar to the vendor chunk
     // see: https://webpack.js.org/plugins/commons-chunk-plugin/#extra-async-commons-chunk
     new webpack.optimize.CommonsChunkPlugin({
-      name: 'app',
+      name: ['app','app2'],
       async: 'vendor-async',
       children: true,
       minChunks: 3
     }),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'app2',
-      async: 'vendor-async',
-      children: true,
-      minChunks: 3
-    }),
+    // new webpack.optimize.CommonsChunkPlugin({
+    //   name: 'app2',
+    //   async: 'vendor-async',
+    //   children: true,
+    //   minChunks: 3
+    // }),
 
     // copy custom static assets
     new CopyWebpackPlugin([

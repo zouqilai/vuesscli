@@ -18,6 +18,14 @@ const express = require('express');
 const bodyParser = require('body-parser');
 // 创建node.js的express开发框架的实例
 const app = express();
+app.all('*', (req, res, next) => {
+  var origin = req.headers.origin;
+  res.header('Access-Control-Allow-Origin', origin);
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, token');
+  res.header('Access-Control-Allow-Credentials', true);
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, OPTIONS, DELETE');
+  next()
+});
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 // 引用的data地址
@@ -26,6 +34,8 @@ const appData = require('../data.json')
 const remen = appData.remen;
 const jiatingjiaoyu = appData.jiatingjiaoyu;
 const detail = appData.detail;
+const getScreenUser = appData.getScreenUser;
+const newtype = appData.newtype;
 
 const devWebpackConfig = merge(baseWebpackConfig, {
   module: {
@@ -37,6 +47,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
   // these devServer options should be customized in /config/index.js
   devServer: {
     before(app) {
+      //response.setHeader("Access-Control-Allow-Origin", "*");
       app.get('/api/remen', (req, res) => {
         res.json({
           errno: 0,
@@ -54,12 +65,31 @@ const devWebpackConfig = merge(baseWebpackConfig, {
           errno: 0,
           data: detail
         })
+      }),
+      app.post('/api/admin/userlist', (req, res) => {
+        res.json({
+          errno: 0,
+          data: getScreenUser
+        })
+      }),
+      app.post('/api/admin/newtype', (req, res) => {
+        res.json({
+          errno: 0,
+          data: newtype
+        })
+      }),
+      app.post('/api/admin/prenewtype', (req, res) => {
+        res.json({
+          errno: 0,
+          data: newtype
+        })
       })
     },
     clientLogLevel: 'warning',
     historyApiFallback: {
       rewrites: [
-        { from: /.*/, to: path.posix.join(config.dev.assetsPublicPath, 'index.html') },
+        { from: /^\/admin/, to: path.posix.join(config.dev.assetsPublicPath, 'admin.html') },
+        { from: /.*/, to: path.posix.join(config.dev.assetsPublicPath, 'index.html') }
       ],
     },
     hot: true,

@@ -32,14 +32,16 @@ export default () => {
 	    	component: detail
 	  	},
 	  	{
+
 	  		path: '/admin/login',
 	    	name: 'admin',
-	    	component: login
+	    	component: login,
+
 	    	// children:[
 		    // 	{
-		    // 		path:'/login',
+		    // 		path:'#/admin/login',
 		    // 		name:'login',
-		    // 		component: login
+		    		
 		    // 	}
 	    	// ]
 	    	
@@ -49,12 +51,12 @@ export default () => {
 	    	name: 'admin',
 	    	component: reg
 	    },
-	    // {
-	    //   path: '*',
-	    //   //name: 'remen',
-	    //   //component: remen
-	    //   redirect: '/remen'
-	    // }
+	    {
+	      path: '*',
+	      //name: 'remen',
+	      //component: remen
+	      redirect: '/remen'
+	    }
 	  ],
 	  base: __dirname,
 	  mode: 'history'

@@ -1,6 +1,6 @@
 import Vue from 'vue';
-import AppAdmin from './admin/index';
-import createRouter from './router';
+import AppAdmin from './index';
+import createRouter from '../../router/admin';
 
 Vue.config.productionTip = false
 

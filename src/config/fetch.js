@@ -23,7 +23,9 @@ export default async(url = '', data = {}, type = 'GET', method = 'fetch') => {
 			method: type,
 			headers: {
 				'Accept': 'application/json',
-				'Content-Type': 'application/json'
+				//'Content-Type': 'application/json; charset=UTF-8',
+				'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+				'Access-Control-Allow-Origin': '*'
 			}
 		}
 

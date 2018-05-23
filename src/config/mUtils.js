@@ -42,6 +42,40 @@ export const getStyle = (element, attr, NumberMode = 'int') => {
     return  NumberMode == 'float'? parseFloat(target) : parseInt(target);
 } 
 
+/***
+* 判断是否有某个class
+*/
+export const hasClass = (obj, cls) => {
+    let obj_class = obj.className;//获取 class 内容.
+    let obj_class_lst = obj_class.split(/\s+/);//通过split空字符将cls转换成数组.
+    let x = 0;
+    for(x in obj_class_lst) {
+        if(obj_class_lst[x] == cls) {//循环数组, 判断是否包含cls
+            return true;
+        }
+    }
+    return false;
+}
+/**
+*添加class
+**/
+export const addClass = (obj, cls) => {
+    let obj_class = obj.className;//获取 class 内容.
+    let blank = (obj_class != '') ? ' ' : '';
+    let added = obj_class + blank + cls;
+    obj.className = added;//替换原来的 class.
+}
+/**
+*删除class
+**/
+export const removeClass = (obj, cls) => {
+    let obj_class = ' '+obj.className+' ';
+    obj_class = obj_class.replace(/(\s+)/gi, ' ');
+    let removed = obj_class.replace(' '+cls+' ', ' ');
+    removed = removed.replace(/(^\s+)|(\s+$)/g, '');
+    obj.className = removed;//替换原来的 class.
+}  
+
 /**
  * 页面到达底部，加载更多
  */
